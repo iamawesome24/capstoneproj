@@ -144,7 +144,7 @@ def upload(request):
     return HttpResponse("File(s) uploaded!")
 
 from pet import output
-
+from ecg import prediction
 
 # def predict(request):
 #     if request.method == 'POST':
@@ -189,7 +189,7 @@ def predict(request):
     # paths.append("."+filePathName4)
 
     #process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
-    content = {'a':output(path)}
+    content = {'a':prediction(path)}
 
     return render(request, 'index.html', context)
 
