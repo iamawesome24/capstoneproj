@@ -33,12 +33,12 @@ def getSegments_test(subject,y_temp):
 
 
 
-def output(path):
+def output():
     
     model = tf.keras.models.load_model('C://Users//heman//Downloads//PET_alzh.h5')
 
-    #image,_ = readImage("C://Users//heman//Downloads//ADNI_011_S_0010_PET_30_min_3D_FDG_4i_16s__br_raw_20051114113046731_1_S10060_I8664.nii",[])
-    image,_ = readImage(path,[])
+    image,_ = readImage("C://Users//heman//Downloads//ADNI.nii",[])
+    #image,_ = readImage(path,[])
     segments,_ = getSegments_test(image,[])
 
     segments = segments.reshape((1,128,128,63,3))
