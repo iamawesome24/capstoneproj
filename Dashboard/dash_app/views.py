@@ -208,9 +208,10 @@ def mripredict(request):
     print(filePathName4)
 
     process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
-    context['a'] = 'MRI Scan report'
+    context['a'] = 'The Results for MRI Scans are'
+    context['b'] = ''
     mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
-    context['b'] = mriimage
+    context['c'] = mriimage
 
     return render(request, 'index.html', context)
 
@@ -229,10 +230,11 @@ def petpredict(request):
 
     a = output(path)
     context={}
+    context['a'] = 'The Results for MRI Scans are'
     if(a==0):
-      context['a'] = 'Normal'
+      context['c'] = 'Normal as per Ai'
     else:
-      context['a'] = 'AbNormal'
+      context['c'] = 'AbNormal as per Ai'
     mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
     context['b'] = mriimage
     return render(request, 'index.html', context)
@@ -251,10 +253,11 @@ def xraypredict(request):
     print(path)
     a = xray_pred(path)
     context={}
+    context['a'] = 'The prediction for the XRay Image is '
     if(a==0):
-      context['a'] = 'Normal Xray'
+      context['a'] = 'Normal Xray, no Pneumonia found by Ai'
     else:
-      context['a'] = 'AbNormal has Pneumonia'
+      context['a'] = 'AbNormal Xray, Pneumonia found by Ai'
     image = '/content/capstoneproj/Dashboard/' + path
     context['b'] = image
     return render(request, 'index.html', context)
@@ -272,12 +275,20 @@ def ecgpredict(request):
     print(path)
     a = prediction(path)
     context={}
-    if(a[0]==0):
-      context['a'] = 'Normal Heart Beat'
-    else:
-      context['a'] = 'AbNormal'
-    mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
-    context['b'] = mriimage
+    context['a'] = 'The Results for ECG are'
+    if(a[0][0]==0):
+      context['c'] = 'Non-ectopic Beats'
+    elif(a[0][1]==0):
+      context['c'] = 'Fusion Beats '
+    elif(a[0][2]==0):
+      context['c'] = 'AbNormal '
+    elif(a[0][3]==0):
+      context['c'] = 'AbNormal '
+    elif(a[0][4]==0):
+      context['c'] = 'AbNormal '    
+    
+    image = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
+    context['b'] = image
     return render(request, 'index.html', context)
 
 
