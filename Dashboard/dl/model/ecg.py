@@ -30,7 +30,7 @@ def converttoSpectrogram(x):
 def prediction(file):
     path = '/content/capstoneproj/Dashboard/media/'+ file
 
-    train = pd.read_csv(file)
+    train = pd.read_csv(path)
 
     temp = train.iloc[30,:-1].values
     b = converttoSpectrogram(temp)

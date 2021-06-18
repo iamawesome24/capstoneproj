@@ -189,14 +189,30 @@ def predict(request):
     # paths.append("."+filePathName4)
 
     #process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
-    print(path)
-    print("PPPPP")
-    a = output(path)
+    
+    # #IMP
+    # print(path)
+    # print("PPPPP")
+    # a = output(path)
+    # context={}
+    # if(a==0):
+    #   context['a'] = 'Normal'
+    # else:
+    #   context['a'] = 'AbNormal'
+    # #iIMMp
+
+    a = prediction(path)
     context={}
-    if(a==0):
-      context['a'] = 'Normal'
-    else:
-      context['a'] = 'AbNormal'
+    if(a[0] == 1):
+        context['a'] = 'A'
+    elif(a[1] == 1):
+        context['a'] = 'B'    
+    elif(a[2] == 1):
+        context['a'] = 'C'
+    elif(a[3] == 1):
+        context['a'] = 'D'
+    elif(a[4] == 1):
+        context['a'] = 'E'
     return render(request, 'index.html', context)
 
 
