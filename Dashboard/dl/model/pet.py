@@ -10,7 +10,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 
-model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
+model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl//PET_alzh.h5')
 
 
 def readImage(location,y_temp):
