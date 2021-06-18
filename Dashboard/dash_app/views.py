@@ -111,6 +111,7 @@ sys.path.insert(1, 'dl/model')
 from backend_brain_pipeline import process_pipeline
 from pet import output
 from ecg import prediction
+from xray import xray_pred
 
 class OverwriteStorage(FileSystemStorage):
 
@@ -207,8 +208,11 @@ def mripredict(request):
     print(filePathName4)
 
     process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
-    
-    return render(request, 'results.html', context)
+    context['a'] = 'MRI Scan report'
+    mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
+    context['b'] = mriimage
+
+    return render(request, 'index.html', context)
 
 
 def petpredict(request):
@@ -229,8 +233,9 @@ def petpredict(request):
       context['a'] = 'Normal'
     else:
       context['a'] = 'AbNormal'
-    
-    return render(request, 'results.html', context)
+    mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
+    context['b'] = mriimage
+    return render(request, 'index.html', context)
 
 
 def xraypredict(request):
@@ -244,7 +249,15 @@ def xraypredict(request):
     print(filePathName6)
     
     print(path)
-    return HttpResponse("XRAY")
+    a = xray_pred(path)
+    context={}
+    if(a==0):
+      context['a'] = 'Normal Xray'
+    else:
+      context['a'] = 'AbNormal has Pneumonia'
+    image = '/content/capstoneproj/Dashboard/' + path
+    context['b'] = image
+    return render(request, 'index.html', context)
 
 
 def ecgpredict(request):
@@ -263,8 +276,9 @@ def ecgpredict(request):
       context['a'] = 'Normal Heart Beat'
     else:
       context['a'] = 'AbNormal'
-    
-    return render(request, 'results.html', context)
+    mriimage = 'content/capstoneproj/Dashboard/dash_app/static/dash_app/mriout.gif'
+    context['b'] = mriimage
+    return render(request, 'index.html', context)
 
 
 
