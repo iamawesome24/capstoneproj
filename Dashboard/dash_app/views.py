@@ -129,8 +129,8 @@ def predict(request):
     filePathName1 = fs.save(fileObj.name, fileObj)
     filePathName1 = fs.url(fileObj.name)
     paths.append("."+filePathName1)
-
-    print(output())
+    path = filePathName1
+    print(output(path))
     # fileObj = request.FILES['filelocation2']
     # filePathName2 = fs.save(fileObj.name, fileObj)
     # filePathName2 = fs.url(fileObj.name)
