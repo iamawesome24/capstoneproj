@@ -39,7 +39,7 @@ def output(path):
     
     #model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
 
-    image,_ = readImage(path,[])
+    image,_ = readImage('/content/capstoneproj/Dashboard/dl/'+ path,[])
     #image,_ = readImage(path,[])
     segments,_ = getSegments_test(image,[])
 
