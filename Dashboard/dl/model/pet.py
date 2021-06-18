@@ -10,6 +10,8 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 
+model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
+
 
 def readImage(location,y_temp):
     image = nib.load(location)
@@ -35,7 +37,7 @@ def getSegments_test(subject,y_temp):
 
 def output(path):
     
-    model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
+    #model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
 
     image,_ = readImage(path,[])
     #image,_ = readImage(path,[])

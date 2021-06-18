@@ -648,10 +648,10 @@
  <div class="col-md-4 col-sm-4"><label for="fname">Upload t1 File Here:</label> </div> <input name="filelocation1" type="file" ><br><br>
  {% comment %} <div class="col-md-4 col-sm-4"><label for="fname">Upload t2 File Here:</label> </div> <input name="filelocation3" type="file"><br><br>
  <div class="col-md-4 col-sm-4"><label for="fname">Upload t1ce File Here:</label> </div> <input name="filelocation4" type="file"><br><br>
-<div class="col-md-4 col-sm-4"><label for="fname">Upload flaire File Here:</label> </div> <input name="filelocation2" type="file"><br><br>  {% endcomment %}
+<div class="col-md-4 col-sm-4"><label for="fname">Upload flaire File Here:</label> </div> <input name="filelocation2" type="file"><br><br> 
 
- 
- <input type="submit" value="Submit" >
+  {% endcomment %}
+ <input type="submit" value="Submit" > 
 
 
 
@@ -668,7 +668,12 @@
 
  <input type="submit" value="Submit" >
 </form> {% endcomment %}
-
+{% comment %} 
+<form method="post" enctype="multipart/form-data" action="/upload/">{% csrf_token %}
+<input type="file" name=="filesmri"/>
+<input type="submit" value="Upload"/>       
+</form>
+ {% endcomment %}
 
 
 

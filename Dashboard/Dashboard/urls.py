@@ -25,6 +25,8 @@ urlpatterns = [
     path('', views.signin, name='sign-in'),
     path('sign-up', views.signup, name='sign-up'),
     path('predict', views.predict, name='predict'),
-    path('run', views.run, name='run'),
+    # path('run', views.run, name='run'),
+    path('forms/', views.form),
+    path('upload/', views.upload)
 
 ]

@@ -105,32 +105,74 @@ def addpatient(request):
             # return HttpResponseRedirect('homepage/dashboard/')
     return render(request, "addPatient.html")
 
-
 import sys
 sys.path.insert(1, 'dl/model')
 
 #from backend_brain_pipeline import process_pipeline
 
-class OverwriteStorage(FileSystemStorage):
+# class OverwriteStorage(FileSystemStorage):
 
-    def get_available_name(self, name, max_length=None):
-        self.delete(name)
-        return name
+#     def get_available_name(self, name, max_length=None):
+#         self.delete(name)
+#         return name
+
+
+
+def form(request):
+    return render (request, 'profile.html')
+
+def upload(request):
+    # print(request.FILES.getlist("files"))
+    # print(request.POST.dict())
+    # print(">>>")
+    # print(request)
+    # for count, x in enumerate(request.FILES.getlist("files")):
+    #     def process(f):
+    #         with open('Dashboard/media/file_' + str(count), 'wb+') as destination:
+    #             for chunk in f.chunks():
+    #                 destination.write(chunk)
+    #     process(x)
+    #     print(x)
+
+    print (request)
+    print (request.POST.dict())
+    print("-------")
+    fileObj=request.FILES['filesmri']
+    fs=FileSystemStorage()
+    filePathName=fs.save(fileObj.name,fileObj)
+    filePathName=fs.url(filePathName)
+    return HttpResponse("File(s) uploaded!")
+
 from pet import output
+
+
+# def predict(request):
+#     if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             handle_uploaded_file(request.FILES['file'])
+#             form.save()
+#             return HttpResponseRedirect('/success/url/')
+#     else:
+#         form = UploadFileForm()
+#     return render(request, 'index.html', {'form': form})
+
+
 def predict(request):
     context={'a':1}
     #print(request)
     #print(request.POST.dict)
     paths = []
     
-    fs = OverwriteStorage()
- 
+    # fs = OverwriteStorage()
+    fs=FileSystemStorage()
+
     fileObj = request.FILES['filelocation1']
     filePathName1 = fs.save(fileObj.name, fileObj)
     filePathName1 = fs.url(fileObj.name)
     paths.append("."+filePathName1)
     path = filePathName1
-    print(output(path))
+    print(filePathName1)
     # fileObj = request.FILES['filelocation2']
     # filePathName2 = fs.save(fileObj.name, fileObj)
     # filePathName2 = fs.url(fileObj.name)
@@ -147,23 +189,25 @@ def predict(request):
     # paths.append("."+filePathName4)
 
     #process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
+    content = {'a':output(path)}
+
     return render(request, 'index.html', context)
 
 
 
 
 
-def run(request):
-    print("??")
-    fs = OverwriteStorage()
-    fileObj = request.FILES['petfilelocation']
-    filePathName5 = fs.save(fileObj.name, fileObj)
-    filePathName5 = fs.url(fileObj.name)
-    print("Till here")
-    print(filePathName5)
-    path = 'Dashboard' + filePathName5
-    content = {'a':output(path)}
-    return render(request, 'index.html', content)
+# def run(request):
+#     print("??")
+#     fs = OverwriteStorage()
+#     fileObj = request.FILES['petfilelocation']
+#     filePathName5 = fs.save(fileObj.name, fileObj)
+#     filePathName5 = fs.url(fileObj.name)
+#     print("Till here")
+#     print(filePathName5)
+#     path = 'Dashboard' + filePathName5
+#     content = {'a':output(path)}
+#     return render(request, 'index.html', content)
 
 
 
