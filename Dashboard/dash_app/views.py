@@ -9,7 +9,7 @@ import os
 from django.templatetags.static import static
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-# Create your views here.
+# Create your views here.  
 
 # display homepage
 
@@ -189,8 +189,14 @@ def predict(request):
     # paths.append("."+filePathName4)
 
     #process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
-    content = {'a':prediction(path)}
-
+    print(path)
+    print("PPPPP")
+    a = output(path)
+    context={}
+    if(a==0):
+      context['a'] = 'Normal'
+    else:
+      context['a'] = 'AbNormal'
     return render(request, 'index.html', context)
 
 

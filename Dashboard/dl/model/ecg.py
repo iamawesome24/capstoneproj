@@ -9,7 +9,7 @@ import pandas as pd
 
 
 
-model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ECG_Model (1).h5')
+#model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ECG_Model (1).h5')
 
 
 def converttoSpectrogram(x):
@@ -22,13 +22,14 @@ def converttoSpectrogram(x):
     librosa.display.specshow(Xdb, sr=125)
     plt.savefig('temp.jpg', bbox_inches='tight')
     plt.close()
-
+ 
     image = cv2.imread('temp.jpg')[:,:,[2,1,0]]
     os.remove('temp.jpg')
     return cv2.resize(image,(128,128))
 
 def prediction(file):
-    
+    path = '/content/capstoneproj/Dashboard/media/'+ file
+
     train = pd.read_csv(file)
 
     temp = train.iloc[30,:-1].values

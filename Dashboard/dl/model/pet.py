@@ -38,12 +38,13 @@ def getSegments_test(subject,y_temp):
 def output(file):
     
     #model = tf.keras.models.load_model('Dashboard//dl//PET_alzh.h5')
-    path = os.path.join('/content/capstoneproj/Dashboard/media/', file)
+    # path = os.path.join('/content/capstoneproj/Dashboard/media/', file)
+    path = '/content/capstoneproj/Dashboard/media/'+ file
     image,_ = readImage(path,[])
     #image,_ = readImage(path,[])
     segments,_ = getSegments_test(image,[])
 
     segments = segments.reshape((1,128,128,63,3))
     a = model.predict(segments)
-    a = a[0][0].round
+    a = a[0][0].round()
     return a

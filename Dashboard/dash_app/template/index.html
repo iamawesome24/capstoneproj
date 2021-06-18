@@ -1,10 +1,6 @@
-{% load static %}
 <h2>The Result is </h2>
  <img src="static/assets/img/out.gif" alt='imagename'>
 
-{% if a %}
-<var>a</var>
-<p>Abnormal PET Scan </p>
-{%else%}
+<p>Abnormal PET Scan {{ a }}</p>
+
 <p>Normal PET Scan</p>
-{% endif%}
