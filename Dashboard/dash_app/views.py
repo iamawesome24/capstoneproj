@@ -108,55 +108,15 @@ def addpatient(request):
 import sys
 sys.path.insert(1, 'dl/model')
 
-#from backend_brain_pipeline import process_pipeline
-
-# class OverwriteStorage(FileSystemStorage):
-
-#     def get_available_name(self, name, max_length=None):
-#         self.delete(name)
-#         return name
-
-
-
-def form(request):
-    return render (request, 'profile.html')
-
-def upload(request):
-    # print(request.FILES.getlist("files"))
-    # print(request.POST.dict())
-    # print(">>>")
-    # print(request)
-    # for count, x in enumerate(request.FILES.getlist("files")):
-    #     def process(f):
-    #         with open('Dashboard/media/file_' + str(count), 'wb+') as destination:
-    #             for chunk in f.chunks():
-    #                 destination.write(chunk)
-    #     process(x)
-    #     print(x)
-
-    print (request)
-    print (request.POST.dict())
-    print("-------")
-    fileObj=request.FILES['filesmri']
-    fs=FileSystemStorage()
-    filePathName=fs.save(fileObj.name,fileObj)
-    filePathName=fs.url(filePathName)
-    return HttpResponse("File(s) uploaded!")
-
+from backend_brain_pipeline import process_pipeline
 from pet import output
 from ecg import prediction
 
-# def predict(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             handle_uploaded_file(request.FILES['file'])
-#             form.save()
-#             return HttpResponseRedirect('/success/url/')
-#     else:
-#         form = UploadFileForm()
-#     return render(request, 'index.html', {'form': form})
+class OverwriteStorage(FileSystemStorage):
 
+    def get_available_name(self, name, max_length=None):
+        self.delete(name)
+        return name
 
 def predict(request):
     context={'a':1}
@@ -217,19 +177,97 @@ def predict(request):
 
 
 
+def mripredict(request):
+    context={'a':1}
+    paths = []
+    fs = OverwriteStorage()
+
+    fileObj = request.FILES['filelocation1']
+    filePathName1 = fs.save(fileObj.name, fileObj)
+    filePathName1 = fs.url(fileObj.name)
+    paths.append("."+filePathName1)
+    print(filePathName1)
+    
+    fileObj = request.FILES['filelocation2']
+    filePathName2 = fs.save(fileObj.name, fileObj)
+    filePathName2 = fs.url(fileObj.name)
+    paths.append("."+filePathName2)
+    print(filePathName2)
+
+    fileObj = request.FILES['filelocation3']
+    filePathName3 = fs.save(fileObj.name, fileObj)
+    filePathName3 = fs.url(fileObj.name)
+    paths.append("."+filePathName3)
+    print(filePathName3)
+
+    fileObj = request.FILES['filelocation4']
+    filePathName4 = fs.save(fileObj.name, fileObj)
+    filePathName4 = fs.url(fileObj.name)
+    paths.append("."+filePathName4)
+    print(filePathName4)
+
+    process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
+    
+    return render(request, 'results.html', context)
 
 
-# def run(request):
-#     print("??")
-#     fs = OverwriteStorage()
-#     fileObj = request.FILES['petfilelocation']
-#     filePathName5 = fs.save(fileObj.name, fileObj)
-#     filePathName5 = fs.url(fileObj.name)
-#     print("Till here")
-#     print(filePathName5)
-#     path = 'Dashboard' + filePathName5
-#     content = {'a':output(path)}
-#     return render(request, 'index.html', content)
+def petpredict(request):
+    
+    fs=FileSystemStorage()
+
+    fileObj = request.FILES['filelocation5']
+    filePathName5 = fs.save(fileObj.name, fileObj)
+    filePathName5 = fs.url(fileObj.name)
+    path = filePathName5
+    print(filePathName5)
+    
+    print(path)
+
+    a = output(path)
+    context={}
+    if(a==0):
+      context['a'] = 'Normal'
+    else:
+      context['a'] = 'AbNormal'
+    
+    return render(request, 'results.html', context)
+
+
+def xraypredict(request):
+
+    fs=FileSystemStorage()
+
+    fileObj = request.FILES['filelocation6']
+    filePathName6 = fs.save(fileObj.name, fileObj)
+    filePathName6 = fs.url(fileObj.name)
+    path = filePathName6
+    print(filePathName6)
+    
+    print(path)
+    return HttpResponse("XRAY")
+
+
+def ecgpredict(request):
+    fs=FileSystemStorage()
+
+    fileObj = request.FILES['filelocation7']
+    filePathName7 = fs.save(fileObj.name, fileObj)
+    filePathName7 = fs.url(fileObj.name)
+    path = filePathName7
+    print(filePathName7)
+    
+    print(path)
+    a = prediction(path)
+    context={}
+    if(a[0]==0):
+      context['a'] = 'Normal Heart Beat'
+    else:
+      context['a'] = 'AbNormal'
+    
+    return render(request, 'results.html', context)
+
+
+
 
 
 

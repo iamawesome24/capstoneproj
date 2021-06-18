@@ -7,9 +7,7 @@ from scipy import signal
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-
-#model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ECG_Model (1).h5')
+model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ECG_Model (1).h5')
 
 
 def converttoSpectrogram(x):
@@ -28,10 +26,10 @@ def converttoSpectrogram(x):
     return cv2.resize(image,(128,128))
 
 def prediction(file):
-    path = '/content/capstoneproj/Dashboard/media/'+ file
+
+    path = '/content/capstoneproj/Dashboard/'+ file
 
     train = pd.read_csv(path)
-
     temp = train.iloc[30,:-1].values
     b = converttoSpectrogram(temp)
     b = b.reshape(1,128,128,3)
