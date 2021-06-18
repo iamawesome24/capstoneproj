@@ -7,7 +7,7 @@ from scipy import signal
 import matplotlib.pyplot as plt
 import pandas as pd
 
-model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ECG_Model (1).h5')
+model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/ecg.h5')
 
 
 def converttoSpectrogram(x):

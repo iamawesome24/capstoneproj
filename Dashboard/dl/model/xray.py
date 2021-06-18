@@ -1,7 +1,7 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import cv2
-model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/Inceptionv3.h5')
+model = tf.keras.models.load_model('/content/capstoneproj/Dashboard/dl/xray.h5')
 
 
 def xray_pred(path):
