@@ -179,34 +179,43 @@ def predict(request):
 
 
 def mripredict(request):
-    context={'a':1}
+    context={}
     paths = []
+#    fs = OverwriteStorage()
+    print("*******************************")
     fs = OverwriteStorage()
+    for count, x in enumerate(request.FILES.getlist("filelocation1")):
+            def process(f):
+                with open('/content/capstoneproj/Dashboard//media/file_' + str(count), 'wb+') as destination:
+                    for chunk in f.chunks():
+                        destination.write(chunk)
+                        print("1") 
+            process(x)
 
-    fileObj = request.FILES['filelocation1']
-    filePathName1 = fs.save(fileObj.name, fileObj)
-    filePathName1 = fs.url(fileObj.name)
-    paths.append("."+filePathName1)
-    print(filePathName1)
+    # fileObj = request.FILES['filelocation1']
+    # filePathName1 = fs.save(fileObj.name, fileObj)
+    # filePathName1 = fs.url(fileObj.name)
+    # paths.append("."+filePathName1)
+    # print(filePathName1)
     
-    fileObj = request.FILES['filelocation2']
-    filePathName2 = fs.save(fileObj.name, fileObj)
-    filePathName2 = fs.url(fileObj.name)
-    paths.append("."+filePathName2)
-    print(filePathName2)
+    # fileObj = request.FILES['filelocation2']
+    # filePathName2 = fs.save(fileObj.name, fileObj)
+    # filePathName2 = fs.url(fileObj.name)
+    # paths.append("."+filePathName2)
+    # print(filePathName2)
 
-    fileObj = request.FILES['filelocation3']
-    filePathName3 = fs.save(fileObj.name, fileObj)
-    filePathName3 = fs.url(fileObj.name)
-    paths.append("."+filePathName3)
-    print(filePathName3)
+    # fileObj = request.FILES['filelocation3']
+    # filePathName3 = fs.save(fileObj.name, fileObj)
+    # filePathName3 = fs.url(fileObj.name)
+    # paths.append("."+filePathName3)
+    # print(filePathName3)
 
-    fileObj = request.FILES['filelocation4']
-    filePathName4 = fs.save(fileObj.name, fileObj)
-    filePathName4 = fs.url(fileObj.name)
-    paths.append("."+filePathName4)
-    print(filePathName4)
-    process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
+    # fileObj = request.FILES['filelocation4']
+    # filePathName4 = fs.save(fileObj.name, fileObj)
+    # filePathName4 = fs.url(fileObj.name)
+    # paths.append("."+filePathName4)
+    # print(filePathName4)
+    # process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
     context['a'] = 'The Results for MRI Scans are'
     context['b'] = 'Coloured regions indicate abnormality'
     context['c'] ='static/assets/img/out.gif'
@@ -233,6 +242,8 @@ def petpredict(request):
       context['b'] = 'Normal as per Ai'
     else:
       context['b'] = 'AbNormal as per Ai'
+    
+    path = '/content/capstoneproj/Dashboard/' + path
     context['c'] = path
     return render(request, 'index.html', context)
 
@@ -255,6 +266,8 @@ def xraypredict(request):
       context['b'] = 'Normal Xray, no Pneumonia found by Ai'
     else:
       context['b'] = 'AbNormal Xray, Pneumonia found by Ai'
+      
+    path = '/content/capstoneproj/Dashboard/' + path
     context['c'] = path
     return render(request, 'index.html', context)
 
@@ -282,7 +295,7 @@ def ecgpredict(request):
       context['b'] = 'AbNormal '
     elif(a[0][4]==0):
       context['b'] = 'AbNormal '    
-    
+    path = '/content/capstoneproj/Dashboard/' + path
     context['c'] = path
     return render(request, 'index.html', context)
 
