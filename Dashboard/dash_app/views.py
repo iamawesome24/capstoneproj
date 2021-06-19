@@ -230,7 +230,7 @@ def petpredict(request):
 
     a = output(path)
     context={}
-    context['a'] = 'The Results for MRI Scans are'
+    context['a'] = 'The Results for PET Scans are '
     if(a==0):
       context['c'] = 'Normal as per Ai'
     else:
@@ -275,7 +275,7 @@ def ecgpredict(request):
     print(path)
     a = prediction(path)
     context={}
-    context['a'] = 'The Results for ECG are'
+    context['a'] = 'The Results for ECG are '
     if(a[0][0]==0):
       context['c'] = 'Non-ectopic Beats'
     elif(a[0][1]==0):
