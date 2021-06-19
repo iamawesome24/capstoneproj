@@ -119,65 +119,6 @@ class OverwriteStorage(FileSystemStorage):
         self.delete(name)
         return name
 
-def predict(request):
-    context={'a':1}
-    #print(request)
-    #print(request.POST.dict)
-    paths = []
-    
-    # fs = OverwriteStorage()
-    fs=FileSystemStorage()
-
-    fileObj = request.FILES['filelocation1']
-    filePathName1 = fs.save(fileObj.name, fileObj)
-    filePathName1 = fs.url(fileObj.name)
-    paths.append("."+filePathName1)
-    path = filePathName1
-    print(filePathName1)
-    # fileObj = request.FILES['filelocation2']
-    # filePathName2 = fs.save(fileObj.name, fileObj)
-    # filePathName2 = fs.url(fileObj.name)
-    # paths.append("."+filePathName2)
-
-    # fileObj = request.FILES['filelocation3']
-    # filePathName3 = fs.save(fileObj.name, fileObj)
-    # filePathName3 = fs.url(fileObj.name)
-    # paths.append("."+filePathName3)
-
-    # fileObj = request.FILES['filelocation4']
-    # filePathName4 = fs.save(fileObj.name, fileObj)
-    # filePathName4 = fs.url(fileObj.name)
-    # paths.append("."+filePathName4)
-
-    #process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
-    
-    # #IMP
-    # print(path)
-    # print("PPPPP")
-    # a = output(path)
-    # context={}
-    # if(a==0):
-    #   context['a'] = 'Normal'
-    # else:
-    #   context['a'] = 'AbNormal'
-    # #iIMMp
-
-    a = prediction(path)
-    context={}
-    if(a[0] == 1):
-        context['a'] = 'A'
-    elif(a[1] == 1):
-        context['a'] = 'B'    
-    elif(a[2] == 1):
-        context['a'] = 'C'
-    elif(a[3] == 1):
-        context['a'] = 'D'
-    elif(a[4] == 1):
-        context['a'] = 'E'
-    return render(request, 'index.html', context)
-
-
-
 def mripredict(request):
     context={}
     paths = []
@@ -191,34 +132,10 @@ def mripredict(request):
                         destination.write(chunk)
                         print("1") 
             process(x)
-
-    # fileObj = request.FILES['filelocation1']
-    # filePathName1 = fs.save(fileObj.name, fileObj)
-    # filePathName1 = fs.url(fileObj.name)
-    # paths.append("."+filePathName1)
-    # print(filePathName1)
-    
-    # fileObj = request.FILES['filelocation2']
-    # filePathName2 = fs.save(fileObj.name, fileObj)
-    # filePathName2 = fs.url(fileObj.name)
-    # paths.append("."+filePathName2)
-    # print(filePathName2)
-
-    # fileObj = request.FILES['filelocation3']
-    # filePathName3 = fs.save(fileObj.name, fileObj)
-    # filePathName3 = fs.url(fileObj.name)
-    # paths.append("."+filePathName3)
-    # print(filePathName3)
-
-    # fileObj = request.FILES['filelocation4']
-    # filePathName4 = fs.save(fileObj.name, fileObj)
-    # filePathName4 = fs.url(fileObj.name)
-    # paths.append("."+filePathName4)
-    # print(filePathName4)
-    # process_pipeline(paths, fname='dash_app/static/assets/img/out.gif')
+    process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
     context['a'] = 'The Results for MRI Scans are'
     context['b'] = 'Coloured regions indicate abnormality'
-    context['c'] ='static/assets/img/out.gif'
+    context['c'] = 'static/assets/img/out.gif'
     
     return render(request, 'index.html', context)
 
@@ -267,8 +184,9 @@ def xraypredict(request):
     else:
       context['b'] = 'AbNormal Xray, Pneumonia found by Ai'
       
-    path = '/content/capstoneproj/Dashboard/' + path
+    path2 = '/content/capstoneproj/Dashboard/' + path
     context['c'] = path
+    context['d'] = path2
     return render(request, 'index.html', context)
 
 
