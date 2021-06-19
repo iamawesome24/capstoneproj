@@ -156,9 +156,11 @@ def petpredict(request):
     context={}
     context['a'] = 'The Results for PET Scans are '
     if(a==0):
-      context['b'] = 'Normal as per Ai'
+        context['b'] = 'Normal as per Ai'
+        context['c'] = 'static/assets/img/normalpet.gif'
     else:
       context['b'] = 'AbNormal as per Ai'
+      context['c'] = 'static/assets/img/abnormalpet.gif'
     
     path = '/content/capstoneproj/Dashboard/' + path
     context['c'] = path
@@ -205,16 +207,16 @@ def ecgpredict(request):
     context['a'] = 'The Results for ECG are '
     if(a[0][0]==0):
       context['b'] = 'Non-ectopic Beats'
+      context['c'] = 'static/assets/img/ecg0.jpg'
     elif(a[0][1]==0):
       context['b'] = 'Fusion Beats '
+      context['c'] = 'static/assets/img/ecg1.jpg'
     elif(a[0][2]==0):
       context['b'] = 'AbNormal '
     elif(a[0][3]==0):
       context['b'] = 'AbNormal '
     elif(a[0][4]==0):
       context['b'] = 'AbNormal '    
-    path = '/content/capstoneproj/Dashboard/' + path
-    context['c'] = path
     return render(request, 'index.html', context)
 
 
