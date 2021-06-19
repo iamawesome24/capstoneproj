@@ -132,7 +132,7 @@ def mripredict(request):
                         destination.write(chunk)
                         print("1") 
             process(x)
-    process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
+    # process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
     context['a'] = 'The Results for MRI Scans are'
     context['b'] = 'Coloured regions indicate abnormality'
     context['c'] = 'static/assets/img/out.gif'
