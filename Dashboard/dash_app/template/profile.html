@@ -525,6 +525,47 @@
                                 </li>
 
                             </ul>
+
+
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Please upload the Breast Cancer Data file</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 px-0">
+                                    <form method="post" enctype="multipart/form-data" action="/breastpredict">
+                                    {% csrf_token %}
+                                    <input name="filelocation8" type="file" >
+                                    <input type="submit" value="Submit" > 
+                                    </form>
+                                </li>
+
+                            </ul>
+
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Please upload the Glomerelu Data file</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 px-0">
+                                    <form method="post" enctype="multipart/form-data" action="/glomerelupredict">
+                                    {% csrf_token %}
+                                    <input name="filelocation9" type="file" >
+                                    <input type="submit" value="Submit" > 
+                                    </form>
+                                </li>
+
+                            </ul>
+
+
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Please upload the Prostate Data file</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 px-0">
+                                    <form method="post" enctype="multipart/form-data" action="/prostatpredict">
+                                    {% csrf_token %}
+                                    <input name="filelocation10" type="file" >
+                                    <input type="submit" value="Submit" > 
+                                    </form>
+                                </li>
+
+                            </ul>
+
+
+
                         </div>
                     
                     </div>
