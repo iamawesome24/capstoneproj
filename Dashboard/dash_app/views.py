@@ -131,7 +131,6 @@ def mripredict(request):
                 with open('/content/capstoneproj/Dashboard//media/file_' + str(count), 'wb+') as destination:
                     for chunk in f.chunks():
                         destination.write(chunk)
-                        print("1") 
             process(x)
     # process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
     context['a'] = 'The Results for MRI Scans are'
