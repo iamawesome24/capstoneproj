@@ -187,7 +187,7 @@ def xraypredict(request):
     else:
       context['b'] = 'AbNormal Xray, Pneumonia found by Ai'
       
-    path2 = '/content/capstoneproj/Dashboard/' + path
+    path2 = '/content/capstoneproj/Dashboard/media' + path
     context['c'] = path
     context['d'] = path2
     return render(request, 'index.html', context)
@@ -208,10 +208,10 @@ def ecgpredict(request):
     context['a'] = 'The Results for ECG are '
     if(a[0][0]==0):
       context['b'] = 'Non-ectopic Beats'
-      context['c'] = 'static/assets/img/ecg0.jpg'
+      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
     elif(a[0][1]==0):
       context['b'] = 'Fusion Beats '
-      context['c'] = 'static/assets/img/ecg1.jpg'
+      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
     elif(a[0][2]==0):
       context['b'] = 'AbNormal '
     elif(a[0][3]==0):
@@ -236,10 +236,10 @@ def breastpredict(request):
     context['a'] = 'The Results for Breast Cancer Cell detection are '
     if(a==0):
       context['b'] = 'Cancer cells are present '
-      context['c'] = 'static/assets/img/ecg0.jpg'
+      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
     else:
       context['b'] = 'Cancer Cells are not present '
-      context['c'] = 'static/assets/img/ecg1.jpg'
+      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
       
     return render(request, 'index.html', context)
 
