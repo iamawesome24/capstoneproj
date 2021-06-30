@@ -29,6 +29,6 @@ urlpatterns = [
     path('xraypredict', views.xraypredict, name='xraypredict'),
     path('ecgpredict', views.ecgpredict, name='ecgpredict'),
     path('breastpredict', views.breastpredict, name='breastpredict'),
-    path('glomerelupredict', views.glomerelupredict, name='glomerelupredict'),
-    path('prostatepredict', views.prostatepredict, name='prostatepredict'),
+    # path('glomerelupredict', views.glomerelupredict, name='glomerelupredict'),
+    # path('prostatepredict', views.prostatepredict, name='prostatepredict'),
 ]

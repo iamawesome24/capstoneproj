@@ -244,5 +244,12 @@ def breastpredict(request):
     return render(request, 'index.html', context)
 
 
+def glomerelupredict(request):
 
+    return HttpResponse("Glomerelu")
+
+
+def prostataepredict(request):
+
+    return HttpResponse("prostate")
 
