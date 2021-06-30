@@ -549,20 +549,20 @@
                                     </form>
                                 </li>
 
-                            </ul>
+                            </ul>{% endcomment %}
 
 
                             <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Please upload the Prostate Data file</h6>
                             <ul class="list-group">
                                 <li class="list-group-item border-0 px-0">
-                                    <form method="post" enctype="multipart/form-data" action="/prostatpredict">
+                                    <form method="post" enctype="multipart/form-data" action="/prostatepredict">
                                     {% csrf_token %}
                                     <input name="filelocation10" type="file" >
                                     <input type="submit" value="Submit" > 
                                     </form>
                                 </li>
 
-                            </ul> {% endcomment %}
+                            </ul> 
 
 
 

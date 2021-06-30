@@ -250,10 +250,10 @@ def glomerelupredict(request):
     return HttpResponse("Glomerelu")
 
 
-def prostataepredict(request):
+def prostatepredict(request):
 
     fs=FileSystemStorage()
-
+    print("Inside prostate function")
     fileObj = request.FILES['filelocation9']
     filePathName9 = fs.save(fileObj.name, fileObj)
     filePathName9 = fs.url(fileObj.name)

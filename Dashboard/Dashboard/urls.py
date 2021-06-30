@@ -30,5 +30,5 @@ urlpatterns = [
     path('ecgpredict', views.ecgpredict, name='ecgpredict'),
     path('breastpredict', views.breastpredict, name='breastpredict'),
     # path('glomerelupredict', views.glomerelupredict, name='glomerelupredict'),
-    # path('prostatepredict', views.prostatepredict, name='prostatepredict'),
+    path('prostatepredict', views.prostatepredict, name='prostatepredict'),
 ]
