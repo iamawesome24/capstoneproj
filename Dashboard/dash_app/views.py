@@ -159,12 +159,13 @@ def petpredict(request):
     if(a==0):
         context['b'] = 'Normal as per Ai'
         context['c'] = 'static/assets/img/normalpet.gif'
+    
     else:
       context['b'] = 'AbNormal as per Ai'
       context['c'] = 'static/assets/img/abnormalpet.gif'
     
-    path = '/content/capstoneproj/Dashboard/' + path
-    context['c'] = path
+    # path = '/content/capstoneproj/Dashboard/' + path
+    # context['c'] = path
     return render(request, 'index.html', context)
 
 
@@ -187,9 +188,9 @@ def xraypredict(request):
     else:
       context['b'] = 'AbNormal Xray, Pneumonia found by Ai'
       
-    path2 = '/content/capstoneproj/Dashboard/media' + path
+    # path2 = '/content/capstoneproj/Dashboard/media' + path
     context['c'] = path
-    context['d'] = path2
+    # context['d'] = path2
     return render(request, 'index.html', context)
 
 
@@ -235,11 +236,11 @@ def breastpredict(request):
     context={}
     context['a'] = 'The Results for Breast Cancer Cell detection are '
     if(a==0):
-      context['b'] = 'Cancer cells are present '
-      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
+      context['b'] = 'Cancer cells are present'
     else:
       context['b'] = 'Cancer Cells are not present '
-      context['c'] = 'capstoneproj\Dashboard\dash_app\static\assets\img\abnormalpet.gif'
+    
+    context['c'] = path
       
     return render(request, 'index.html', context)
 
