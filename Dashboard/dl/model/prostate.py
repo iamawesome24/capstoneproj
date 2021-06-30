@@ -1,19 +1,8 @@
-# pip install efficientnet -q
 import efficientnet.tfkeras as efn
-# LOAD LIBRARIES
 import numpy as np, pandas as pd, os
 import matplotlib.pyplot as plt, cv2
 import tensorflow as tf, re, math
-# !pip install scikit-image==0.16.2 -q
-# from sklearn.model_selection import StratifiedKFold
-# import skimage.io
-IMG_SIZE=512
-files=tf.io.gfile.glob('../input/panda-tfrec/F0/train00-1000.tfrec')
 
-feature = {
-      'file_id': tf.io.FixedLenFeature([], tf.string),
-      'image': tf.io.FixedLenFeature([], tf.string),
-}
 
 def read_tfrec(file):
     
@@ -40,18 +29,7 @@ def data_gen(files,bs=10,aug=True,cache=True,repeat=True,shuffle=True):
     ds=ds.batch(1,drop_remainder=True)
     return ds
 
-ds=data_gen(files)
-ds
 
-
-model_list=[efn.EfficientNetB0,
-efn.EfficientNetB1,
-efn.EfficientNetB2,
-efn.EfficientNetB3,
-efn.EfficientNetB4,
-efn.EfficientNetB5,
-efn.EfficientNetB6,
-]
 
 def build_model(n):
     
@@ -68,16 +46,36 @@ def build_model(n):
     
     return model
 
-model=build_model(4)
-model.load_weights('../input/pandas-model-36-256-keras/eff/effb4_fold0.h5')
 
 
-preds=model.predict(ds,verbose=1)
+def prostatepred(path):
+    IMG_SIZE=512 
 
+    feature = {
+        'file_id': tf.io.FixedLenFeature([], tf.string),
+        'image': tf.io.FixedLenFeature([], tf.string),
+    }
+    files=tf.io.gfile.glob(path)    
+    ds=data_gen(files)
+    
+    model_list=[efn.EfficientNetB0,
+    efn.EfficientNetB1,
+    efn.EfficientNetB2,
+    efn.EfficientNetB3,
+    efn.EfficientNetB4,
+    efn.EfficientNetB5,
+    efn.EfficientNetB6,
+    ]
 
-sub_file=pd.DataFrame()#read_csv('../input/prostate-cancer-grade-assessment/sample_submission.csv')
+    model=build_model(5)
+    model.load_weights('/content/prostate.h5')
+    preds=model.predict( ds,steps=10,verbose=1)
+    
+    sub_file=pd.DataFrame()#read_csv('../input/prostate-cancer-grade-assessment/sample_submission.csv')
 
-sub_file['image_id']=np.array([img_name.numpy().decode("utf-8") for img, img_name in iter(ds.unbatch())])
-sub_file['isup_grade']=np.argmax(preds,axis=1)
+    sub_file['image_id']=np.array([img_name.numpy().decode("utf-8") for img, img_name in iter(ds.unbatch())])
+    sub_file = sub_file.iloc[:10]
+    sub_file['isup_grade']=np.argmax(preds,axis=1)
 
-sub_file[0]
+    return (sub_file.head(5))
+    

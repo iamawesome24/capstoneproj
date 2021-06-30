@@ -113,6 +113,7 @@ from pet import output
 from ecg import prediction
 from xray import xray_pred
 from breast import breastpred
+from prostate import prostatepred
 
 class OverwriteStorage(FileSystemStorage):
 
@@ -251,5 +252,23 @@ def glomerelupredict(request):
 
 def prostataepredict(request):
 
-    return HttpResponse("prostate")
+    fs=FileSystemStorage()
 
+    fileObj = request.FILES['filelocation9']
+    filePathName9 = fs.save(fileObj.name, fileObj)
+    filePathName9 = fs.url(fileObj.name)
+    path = filePathName9
+    print(filePathName9)
+    
+    print(path)
+    a = prostatepred(path)
+    context={}
+    context['a'] = 'The Results for Prostate Cancer are '
+    # if(a==0):
+    #   context['b'] = 'Cancer cells are present'
+    # else:
+    #   context['b'] = 'Cancer Cells are not present '
+    context['b']= a
+    context['c'] = path
+      
+    return render(request, 'index.html', context)
