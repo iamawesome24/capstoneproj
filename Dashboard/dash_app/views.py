@@ -247,11 +247,6 @@ def breastpredict(request):
 
 def glomerelupredict(request):
 
-    return HttpResponse("Glomerelu")
-
-
-def prostatepredict(request):
-
     fs=FileSystemStorage()
     print("Inside prostate function")
     fileObj = request.FILES['filelocation9']
@@ -259,6 +254,30 @@ def prostatepredict(request):
     filePathName9 = fs.url(fileObj.name)
     path = filePathName9
     print(filePathName9)
+    
+    print(path)
+    a = glomerelupredict(path)
+    context={}
+    context['a'] = 'The Results for Prostate Cancer are '
+    # if(a==0):
+    #   context['b'] = 'Cancer cells are present'
+    # else:
+    #   context['b'] = 'Cancer Cells are not present '
+    context['b']= a
+    context['c'] = path
+      
+    return render(request, 'index.html', context)
+
+
+def prostatepredict(request):
+
+    fs=FileSystemStorage()
+    print("Inside prostate function")
+    fileObj = request.FILES['filelocation10']
+    filePathName10 = fs.save(fileObj.name, fileObj)
+    filePathName10 = fs.url(fileObj.name)
+    path = filePathName10
+    print(filePathName10)
     
     print(path)
     a = prostatepred(path)
