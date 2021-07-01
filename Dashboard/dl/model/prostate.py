@@ -29,7 +29,7 @@ def build_model(n):
 def prostatepred(path):
     model = build_model(5)
     model.load_weights('/content/prostate.h5')
-    img=tf.image.decode_png(tf.io.read_file('/content/101.png'),channels=3)
+    img=tf.image.decode_png(tf.io.read_file(path),channels=3)
     plt.imshow(img)
     pred=np.argmax(model.predict(img.numpy().reshape((1,512,512,3))))
     print("Tissue Grade = ", pred)
