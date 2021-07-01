@@ -8,7 +8,7 @@ from django.core.files.storage import FileSystemStorage
 import os
 from django.templatetags.static import static
 from django.views.decorators.csrf import ensure_csrf_cookie
-
+from django.conf import settings
 # Create your views here.  
 
 # display homepage
@@ -123,7 +123,7 @@ class OverwriteStorage(FileSystemStorage):
 
 def mripredict(request):
     context={}
-    paths = []
+    paths = ['file_0', 'file_1', 'file_2', 'file_3']
 #    fs = OverwriteStorage()
     print("*******************************")
     fs = OverwriteStorage()
@@ -132,8 +132,10 @@ def mripredict(request):
                 with open('/content/capstoneproj/Dashboard//media/file_' + str(count), 'wb+') as destination:
                     for chunk in f.chunks():
                         destination.write(chunk)
+                        
             process(x)
-    # process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
+    
+    process_pipeline(paths, fname='dash_app/static/assets/img/mriout.gif')
     context['a'] = 'The Results for MRI Scans are'
     context['b'] = 'Coloured regions indicate abnormality'
     context['c'] = 'static/assets/img/out.gif'
@@ -189,8 +191,11 @@ def xraypredict(request):
       context['b'] = 'AbNormal Xray, Pneumonia found by Ai'
       
     # path2 = '/content/capstoneproj/Dashboard/media' + path
-    context['c'] = path
+    path2 = settings.MEDIA_ROOT
+    imgl = os.listdir(path2 + '/xray.jpg')
     # context['d'] = path2
+    context['c'] = imgl
+
     return render(request, 'index.html', context)
 
 
